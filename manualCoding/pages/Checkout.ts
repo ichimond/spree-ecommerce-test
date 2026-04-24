@@ -8,6 +8,11 @@ export class Checkout {
     private shippingCity = () => this.page.getByRole('textbox', { name: 'City' });
     private shippingState = () => this.page.getByRole('combobox', { name: 'State / Province' })
     private shippingZip = () => this.page.getByRole('textbox', { name: 'ZIP / Postal Code' })
+    // private cardNumber = () => this.page.frameLocator('ifrane[name= "__privateStripeFrame6617"]')
+    //    .getByRole('textbox', { name: 'Card number' });
+    private cardNumber = () => this.page.getByRole('textbox', { name: 'Card number' });
+    
+
 
 
     constructor(page: Page) {
@@ -29,5 +34,9 @@ export class Checkout {
         await this.shippingState().selectOption(addressData.state);
         await this.shippingZip().fill(addressData.zipCode);
         
+    }
+
+    async fillPaymentDetails(cardData: { cardNumber: string, expiryDate: string, cvv: string }) {
+        await this.cardNumber().fill(cardData.cardNumber);
     }
 }

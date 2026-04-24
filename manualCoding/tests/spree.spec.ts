@@ -48,9 +48,11 @@ test.describe('Spree Commerce Demo', () => {
 
             //6. Go to the cart and verify the product details (name, quantity, price).
             await checkout.proceedToCheckout();
-            await page.waitForTimeout(5000);
-
             await checkout.fillAddressDetails(accountData.userAddress);
+
+            await page.evaluate(() => window.scrollBy(0, 600));
+            await checkout.fillPaymentDetails(accountData.cardDetails);
+            await page.waitForTimeout(5000);
 
 
 
