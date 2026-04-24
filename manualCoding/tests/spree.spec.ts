@@ -8,22 +8,30 @@ import { Account } from '../pages/Account';
 import accountData from '../.github/workflows/fixture/account.json';
 
 test.describe('Spree Commerce Demo', () => {
-    let account: Account;
 
     test.beforeEach(async ({ page }) => {
         const homepage = new Homepage(page);
         await page.goto('');
     });
 
-    test('Sign up for new account', async ({ page }) => {
+    test('E2E E-commerce Journay', async ({ page }) => {
        const homepage = new Homepage(page);
-       account = new Account(page);
+       const account = new Account(page);
 
+        await test.step('Navigate to homepage', async () => {
+            await homepage.clickAccountIcon();
+            await account.signUp(accountData.newUser);
+       });
+       
+        await test.step('Login with the created account', async () => {
+            await account.login(); 
+        });
 
-       await homepage.clickAccountIcon();
-       await account.signUp(accountData.newUser);
-
-
+        await test.step('Browse products and add to cart', async () => {
+            await page.goto('');
+           
+            
+        });
     });
 
 });
