@@ -3,8 +3,10 @@ import { faker } from '@faker-js/faker';
 
 export class Account {
     private page: Page;
-    private loginEmail: Locator;
-    private loginPassword: Locator
+
+    //Textbox
+    private loginEmail = () =>  this.page.getByRole('textbox', { name: 'Email' });
+    private loginPassword = () => this.page.getByRole('textbox', { name: 'Password' });
     private signInButton: Locator
     private signUpLink: Locator;
     private createAccountText: Locator
@@ -27,8 +29,6 @@ export class Account {
         this.page = page;
 
         //Textbox
-        this.loginEmail = page.getByRole('textbox', { name: 'Email' });
-        this.loginPassword = page.getByRole('textbox', { name: 'Password' });
         this.firstName = page.getByRole('textbox', { name: 'First name' });
         this.lastName = page.getByRole('textbox', { name: 'Last name' });
         this.signupEmail = page.getByRole('textbox', { name: 'Email Email' });
@@ -84,8 +84,8 @@ export class Account {
     }
 
     async login() {
-        await this.loginEmail.fill(this.email);
-        await this.loginPassword.fill(this.password);
+        await this.loginEmail().fill(this.email);
+        await this.loginPassword().fill(this.password);
         await this.signInButton.click();
     }
 
