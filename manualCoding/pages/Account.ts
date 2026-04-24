@@ -63,7 +63,7 @@ export class Account {
         await expect(this.createAccountText).toBeVisible();
 
         //Since email needs to be unique every run, some variation is added
-        this.email = userData.email + faker.string.alphanumeric(4) + '@mail.com'
+        this.email = userData.email + faker.string.alphanumeric(7) + '@mail.com'
         console.log('Generated email: ', this.email);
         this.password = userData.password;
 
