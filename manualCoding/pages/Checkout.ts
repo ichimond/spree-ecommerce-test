@@ -1,0 +1,33 @@
+import {expect, Page } from '@playwright/test';
+
+export class Checkout {
+    private page: Page;
+    private checkoutButton = () => this.page.getByRole('link', { name: 'Checkout' })
+    private shippingCountry = () => this.page.getByRole('combobox', { name: 'Country' });
+    private shippingAddress = () => this.page.getByRole('textbox', { name: 'Address', exact: true })
+    private shippingCity = () => this.page.getByRole('textbox', { name: 'City' });
+    private shippingState = () => this.page.getByRole('combobox', { name: 'State / Province' })
+    private shippingZip = () => this.page.getByRole('textbox', { name: 'ZIP / Postal Code' })
+
+
+    constructor(page: Page) {
+        this.page = page;
+    }
+
+    async proceedToCheckout() {
+        await this.checkoutButton().click();
+        await await this.page.waitForURL('https://demo.spreecommerce.org/us/en/checkout/cart**');
+    }
+
+    async fillAddressDetails(addressData: { country: string, 
+                address: string, city: string, 
+                state: string, zipCode: string }) {
+        
+        await this.shippingCountry().selectOption(addressData.country);
+        await this.shippingAddress().fill(addressData.address);
+        await this.shippingCity().fill(addressData.city);
+        await this.shippingState().selectOption(addressData.state);
+        await this.shippingZip().fill(addressData.zipCode);
+        
+    }
+}

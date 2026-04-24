@@ -4,5 +4,13 @@
         "password": "password123",
         "firstName": "Rich",
         "lastName": "Test"
+    },
+
+    "userAddress": {
+        "country": "United States",
+        "address": "421 Silver Ave",
+        "city" : "Philadelphia",
+        "state": "Pennsylvania",
+        "zipCode": "19147"
     }
 }

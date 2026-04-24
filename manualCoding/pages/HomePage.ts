@@ -4,6 +4,7 @@ export class Homepage {
     private page: Page;
     private accountIcon: Locator;
     private shopAll: Locator;
+    private spreeIcon = () => this.page.getByRole('link', { name: 'Spree', exact: true });
 
 
     constructor(page: Page) {
@@ -26,6 +27,11 @@ export class Homepage {
         await this.shopAll.click();
         await expect(this.page).toHaveURL('https://demo.spreecommerce.org/us/en/products');
     }   
+
+    async goBackToHomepage() {
+        await this.spreeIcon().click();
+        await expect(this.page).toHaveURL('https://demo.spreecommerce.org/us/en');
+    }
 
 
 }

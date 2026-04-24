@@ -87,8 +87,6 @@ export class Account {
         await this.loginEmail.fill(this.email);
         await this.loginPassword.fill(this.password);
         await this.signInButton.click();
-
-        await this.page.waitForTimeout(3000);
     }
 
 
