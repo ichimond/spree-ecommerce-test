@@ -10,13 +10,13 @@ export class Account {
     private signInButton: Locator
     private signUpLink: Locator;
     private createAccountText: Locator
-    private firstName: Locator;
-    private lastName: Locator;
-    private signupEmail: Locator;
-    private signupPassword: Locator;
-    private confirmPassword: Locator;
-    private checkbox: Locator; 
-    private createAccountButton: Locator;
+    private firstName = () => this.page.getByRole('textbox', { name: 'First name' });
+    private lastName = () => this.page.getByRole('textbox', { name: 'Last name' });
+    private signupEmail = () => this.page.getByRole('textbox', { name: 'Email Email' });
+    private signupPassword = () => this.page.getByRole('textbox', { name: 'Password Password' });
+    private confirmPassword = () => this.page.getByRole('textbox', { name: 'Confirm Password' });
+    private checkbox = () => this.page.getByRole('checkbox', { name: 'I agree to the Privacy Policy' });
+    private createAccountButton = () => this.page.getByRole('button', { name: 'Create Account' });
     private accountOverview: Locator;
     private signOut: Locator;
 
@@ -29,16 +29,10 @@ export class Account {
         this.page = page;
 
         //Textbox
-        this.firstName = page.getByRole('textbox', { name: 'First name' });
-        this.lastName = page.getByRole('textbox', { name: 'Last name' });
-        this.signupEmail = page.getByRole('textbox', { name: 'Email Email' });
-        this.signupPassword = page.getByRole('textbox', { name: 'Password Password' });
-        this.confirmPassword = page.getByRole('textbox', { name: 'Confirm Password' });
         this.signOut = page.getByRole('button', { name: 'Sign Out' });
         
         // Buttons
         this.signInButton = page.getByRole('button', { name: 'Sign in' });
-        this.createAccountButton = page.getByRole('button', { name: 'Create Account' });
 
         // Links
         this.signUpLink = page.getByRole('link', { name: 'Sign up' });
@@ -46,9 +40,6 @@ export class Account {
         //Text
         this.accountOverview = page.getByRole('heading', { name: 'Account Overview' })
         this.createAccountText = page.getByText('Create Account').first();
-
-        // Checkbox
-        this.checkbox = page.getByRole('checkbox', { name: 'I agree to the Privacy Policy' });
 
         this.email = '';
         this.password = '';
