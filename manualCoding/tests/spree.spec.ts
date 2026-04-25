@@ -51,8 +51,9 @@ test.describe('Spree Commerce Demo', () => {
             await checkout.fillAddressDetails(accountData.userAddress);
 
             await page.evaluate(() => window.scrollBy(0, 600));
-            await checkout.fillPaymentDetails(accountData.cardDetails);
-            await page.waitForTimeout(5000);
+            await checkout.fillPaymentDetails(accountData.cardDetails, productData.dripCoffee);
+
+            await checkout.verifyOrderConfirmation(accountData.newUser.firstName); 
 
 
 

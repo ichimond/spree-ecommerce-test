@@ -1,7 +1,9 @@
 {
     "dripCoffee" :{
         "name" : "Drip Coffee Maker 1.5L Drip",
+        "checkoutName" : "Drip Coffee Maker 1.5L",
         "price" : "$89.99",
+        "total" : "$103.99",
         "url" : "https://demo.spreecommerce.org/us/en/products/drip-coffee-maker"
     }
 }
