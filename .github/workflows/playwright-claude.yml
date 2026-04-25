@@ -1,13 +1,21 @@
-name: Playwright Tests
+name: Playwright Tests - withClaudeCode
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
+    paths:
+      - 'withClaudeCode/**'
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
+    paths:
+      - 'withClaudeCode/**'
+  
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: withClaudeCode
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -23,5 +31,5 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
-        path: playwright-report/
+        path: withClaudeCode/playwright-report/
         retention-days: 30
