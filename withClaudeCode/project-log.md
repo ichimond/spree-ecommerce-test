@@ -1,5 +1,27 @@
 # Project Log
 
+## Entry 6
+**Date/Time:** 2026-04-27 19:30 PHT  
+**Prompt:** Debug and fix the checkout test — shipping methods not loading, guest mode detection, card selector issues, and order confirmation assertion.
+
+**Actions:**
+- Diagnosed root cause of guest checkout: `login()` did not wait for the session to be established before navigating away — fixed by adding `waitForURL(/\/account/)` to `LoginPage.login()`
+- Updated `LoginPage` email and submit button selectors to role-based (`getByRole`) for robustness
+- Changed checkout navigation to use `checkoutViaCartDialog()` — clicks "Checkout" link directly from the cart dialog instead of going to the cart page first
+- Discovered checkout is still treated as guest (cart token tied to guest session regardless of login state) — implemented `fillGuestEmail(email)` on `CheckoutPage` that fills the Contact Information email field when editable (guest mode), which unblocks the shipping API
+- Removed `shippingMethodOption('Standard').waitFor()` from `fillShippingAddress()` — shipping is no longer awaited inside the address method
+- Adopted user's manual workaround: fill full card details first (number, expiry, CVC, country, ZIP) to trigger shipping API, verify shipping options appear, then refill card details after Stripe re-mounts
+- Fixed Stripe iframe strict mode violation: switched from `frameLocator(...).first()` (deprecated) to `locator(...).first().contentFrame()`
+- Fixed card country selector: `getByRole('combobox', { name: 'Country or region', exact: true })` was not matching — switched to `getByLabel('Country', { exact: true })` which targets the billing country `<select>` uniquely
+- Fixed card ZIP selector: placeholder changed from `'ZIP'` to `'12345'` in current Stripe version — switched to `getByLabel('ZIP code')`
+- Added `verifyOrderSummary(products)` to `CheckoutPage` — asserts product names are visible in the `<p>` elements of the order summary panel
+- Added `termsCheckbox` locator and updated `placeOrder()` to check "I agree to the Privacy Policy and Terms of Service" before clicking Pay Now
+- Fixed order confirmation assertion: `getByText(user.firstName)` resolved to 3 elements (heading, shipping address, billing address) — changed to `getByRole('heading', { name: /Thanks for your order, firstName/ })`
+- Increased test timeout from 60s to 120s to accommodate `networkidle` wait in `addToCart()`
+- All 3 test scenarios now pass end-to-end
+
+---
+
 ## Entry 5
 **Date/Time:** 2026-04-27 16:40 PHT  
 **Prompt:** Proceed to checkout and complete the following: add a shipping address (select United States), verify the different delivery and pricing options, select card payment (card number is in the checkout page — put card details in fixture), complete the order. Note: shipment method only loads after inputting card details, then card gets cleared — refill after shipment loads.
