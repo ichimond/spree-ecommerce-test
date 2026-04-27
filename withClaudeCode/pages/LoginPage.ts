@@ -2,9 +2,9 @@ import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class LoginPage extends BasePage {
-  private emailInput = () => this.page.locator('input#email');
+  private emailInput = () => this.page.getByRole('textbox', { name: 'Email', exact: true });
   private passwordInput = () => this.page.locator('input#password');
-  private signInButton = () => this.page.locator('button[type="submit"]');
+  private signInButton = () => this.page.getByRole('button', { name: 'Sign In' });
   private signUpLink = () => this.page.locator('a[href*="register"]');
 
   constructor(page: Page) {
@@ -23,5 +23,6 @@ export class LoginPage extends BasePage {
     await this.emailInput().fill(email);
     await this.passwordInput().fill(password);
     await this.signInButton().click();
+    await this.page.waitForURL(/\/account/);
   }
 }

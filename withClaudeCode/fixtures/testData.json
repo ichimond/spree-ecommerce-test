@@ -10,5 +10,24 @@
       "slug": "personal-blender",
       "price": "$49.99"
     }
-  ]
+  ],
+  "checkout": {
+    "shippingAddress": {
+      "address": "123 Main Street",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10001"
+    },
+    "card": {
+      "number": "4242424242424242",
+      "expiry": "12/34",
+      "cvc": "123",
+      "country": "United States",
+      "zip": "10001"
+    },
+    "shippingOptions": [
+      { "name": "Standard", "price": "$5.00" },
+      { "name": "Premium", "price": "$9.50" }
+    ]
+  }
 }

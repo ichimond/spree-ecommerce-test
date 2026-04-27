@@ -1,5 +1,24 @@
 # Project Log
 
+## Entry 5
+**Date/Time:** 2026-04-27 16:40 PHT  
+**Prompt:** Proceed to checkout and complete the following: add a shipping address (select United States), verify the different delivery and pricing options, select card payment (card number is in the checkout page — put card details in fixture), complete the order. Note: shipment method only loads after inputting card details, then card gets cleared — refill after shipment loads.
+
+**Actions:**
+- Used Playwright MCP to explore the full checkout flow: registered a temp account, added both products to cart, and navigated to the checkout page
+- Confirmed checkout URL is tokenized: `/us/en/checkout/cart_XXXXX` — must navigate via "Proceed to Checkout" link from cart, not a direct URL
+- Mapped all checkout form fields: Country (defaults to United States), First/Last name (pre-filled from account), Address, City, State/Province combobox, ZIP
+- Confirmed shipping methods (Standard $5.00, Premium $9.50) appear only after address is entered and focus leaves the form — load triggered on blur + networkidle
+- Confirmed Stripe payment section shows test card hint on page: `4242 4242 4242 4242 (any future expiry, any CVC)`
+- Confirmed card iframe title: `"Secure payment input frame"` (single Stripe Payment Element iframe, not separate per-field iframes)
+- Confirmed card clearing behavior: Stripe re-mounts when shipping methods load — strategy is to select Stripe and fill card AFTER shipping methods are visible
+- Added checkout fixture data to `fixtures/testData.json`: shippingAddress, card details, shippingOptions array
+- Added `proceedToCheckout()` method to `pages/CartPage.ts`
+- Created `pages/CheckoutPage.ts` with `fillShippingAddress()`, `verifyShippingOptions()`, `selectStripePayment()`, `fillCardDetails()`, `placeOrder()` methods
+- Added `should complete checkout with card payment` test to `tests/spree.spec.ts`
+
+---
+
 ## Entry 4
 **Date/Time:** 2026-04-27 14:45 PHT  
 **Prompt:** Can we put the tests in 1 describe as well?

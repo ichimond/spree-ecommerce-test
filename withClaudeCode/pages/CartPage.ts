@@ -4,6 +4,8 @@ import { BasePage } from './BasePage';
 export class CartPage extends BasePage {
   private cartIcon = () => this.page.locator('button[aria-label="Open cart"]');
   private viewCartLink = () => this.page.getByRole('link', { name: 'View Cart' });
+  private checkoutDialogLink = () => this.page.getByRole('link', { name: 'Checkout', exact: true });
+  private proceedToCheckoutLink = () => this.page.getByRole('link', { name: 'Proceed to Checkout' });
   private cartHeading = () => this.page.locator('h1', { hasText: 'Shopping Cart' });
   private itemName = (name: string) => this.page.locator('h3.truncate', { hasText: name });
   private itemPrice = (name: string) => this.page.locator('p.mt-2', { hasText: '$' }).filter({ has: this.page.locator('xpath=preceding-sibling::h3', { hasText: name }) });
@@ -23,6 +25,14 @@ export class CartPage extends BasePage {
 
   async navigateViaCartDialog() {
     await this.viewCartLink().click();
+  }
+
+  async checkoutViaCartDialog() {
+    await this.checkoutDialogLink().click();
+  }
+
+  async proceedToCheckout() {
+    await this.proceedToCheckoutLink().click();
   }
 
   async verifyItemInCart(name: string, price: string, quantity: string = '1') {
