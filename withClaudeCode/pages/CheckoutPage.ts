@@ -73,6 +73,6 @@ export class CheckoutPage extends BasePage {
   async placeOrder() {
     await this.termsCheckbox().check();
     await this.payNowButton().click();
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForURL(/\/order/);
   }
 }
