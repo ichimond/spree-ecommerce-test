@@ -47,13 +47,14 @@ test.describe('Spree Commerce Demo', () => {
             await product.addToCart();
 
             //6. Go to the cart and verify the product details (name, quantity, price).
+            // 7. Proceed to checkout
             await checkout.proceedToCheckout();
             await checkout.fillAddressDetails(accountData.userAddress);
 
             await page.evaluate(() => window.scrollBy(0, 600));
             await checkout.fillPaymentDetails(accountData.cardDetails, productData.dripCoffee, 
                 accountData.userAddress.country, accountData.userAddress.zipCode);
-
+            // 8. Verify order confirmation
             await checkout.verifyOrderConfirmation(accountData.newUser.firstName); 
 
 
