@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\ichimond\\AppData\\Roaming\\npm\\node_modules\\@playwright\\mcp\\cli.js"
+      ]
+    }
+  }
+}
