@@ -1,2 +1,14 @@
 {
+  "products": [
+    {
+      "name": "Digital Air Fryer 4.2L",
+      "slug": "digital-air-fryer-4l",
+      "price": "$119.99"
+    },
+    {
+      "name": "Personal Blender 600ml",
+      "slug": "personal-blender",
+      "price": "$49.99"
+    }
+  ]
 }

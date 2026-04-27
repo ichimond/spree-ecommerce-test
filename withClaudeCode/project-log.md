@@ -1,5 +1,32 @@
 # Project Log
 
+## Entry 4
+**Date/Time:** 2026-04-27 14:45 PHT  
+**Prompt:** Can we put the tests in 1 describe as well?
+
+**Actions:**
+- Consolidated both test scenarios into a single `test.describe('Spree Commerce Demo')` block
+- Moved `test.beforeAll` inside the describe — it now scopes correctly to the suite
+- All tests share the same registered user via `beforeAll` and the file-scope `user` variable
+
+---
+
+## Entry 3
+**Date/Time:** 2026-04-27 14:22 PHT  
+**Prompt:** Browse products and open a product detail page. Add the product to cart. Go to the cart and verify the product details (name, quantity, price). From homepage, use the Shop All link. Use Digital Air Fryer 4.2L and Personal Blender 600ml — product data to sit in the fixture.
+
+**Actions:**
+- Used Playwright MCP to explore the products listing page, product detail page, and cart page — mapped all relevant selectors via DOM evaluation
+- Added product fixture data to `fixtures/testData.json` (Digital Air Fryer 4.2L at $119.99, Personal Blender 600ml at $49.99)
+- Created `tsconfig.json` to enable `resolveJsonModule` for JSON fixture imports
+- Updated `pages/HomePage.ts` — added `shopAllLink` locator and `clickShopAll()` method
+- Created `pages/ProductsPage.ts` — with `clickProduct(name)` method using `a[href*="/products/"]` scoped locator
+- Created `pages/ProductDetailPage.ts` — with `getProductName()`, `getProductPrice()`, and `addToCart()` methods
+- Created `pages/CartPage.ts` — with `navigate()` and `verifyItemInCart(name, price, quantity)` methods
+- Added new test describe block in `tests/spree.spec.ts`: iterates over fixture products, navigates from homepage → Shop All → product detail → adds to cart, then verifies each item in the cart
+
+---
+
 ## Entry 2
 **Date/Time:** 2026-04-27 13:58 PHT  
 **Prompt:** First scenario: Navigate to the Spree Commerce demo store. Click on the user icon and Sign Up as a new user from the registration page. Log in with the newly registered user credentials. Use Playwright MCP to get selectors, use faker for user generation, and use page object model.
